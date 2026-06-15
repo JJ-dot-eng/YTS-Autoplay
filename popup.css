@@ -61,18 +61,24 @@ small {
 }
 
 input[role="switch"] {
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+.switch {
+  flex: 0 0 auto;
   width: 44px;
   height: 24px;
-  margin: 0;
-  appearance: none;
   border-radius: 999px;
   background: #d1d5db;
-  cursor: pointer;
   position: relative;
   transition: background 160ms ease;
 }
 
-input[role="switch"]::before {
+.switch::before {
   content: "";
   position: absolute;
   top: 3px;
@@ -85,15 +91,15 @@ input[role="switch"]::before {
   transition: transform 160ms ease;
 }
 
-input[role="switch"]:checked {
+input[role="switch"]:checked + .switch {
   background: #dc2626;
 }
 
-input[role="switch"]:checked::before {
+input[role="switch"]:checked + .switch::before {
   transform: translateX(20px);
 }
 
-input[role="switch"]:focus-visible {
+input[role="switch"]:focus-visible + .switch {
   outline: 2px solid #2563eb;
   outline-offset: 3px;
 }
