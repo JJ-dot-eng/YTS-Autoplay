@@ -8,7 +8,7 @@
     "description": "짧은 확장프로그램 이름."
   },
   "extensionDescription": {
-    "message": "YouTube Shorts 영상이 끝나면 자동으로 다음 Shorts로 넘깁니다.",
+    "message": "현재 Shorts 영상이 끝나면 다음 YouTube Shorts 영상을 자동으로 재생합니다.",
     "description": "Chrome Web Store와 브라우저 확장 설명."
   },
   "htmlLang": {

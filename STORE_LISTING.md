@@ -13,9 +13,9 @@ Automatically advances to the next YouTube Shorts video when the current one end
 
 ## 짧은 설명
 
-YouTube Shorts를 한 편씩 자동으로 이어 볼 수 있게 해주는 간단한 확장프로그램입니다.
+현재 Shorts 영상이 끝나면 다음 YouTube Shorts 영상을 자동으로 재생합니다.
 
-A simple extension that lets you watch YouTube Shorts one after another automatically.
+Auto play the next YouTube Shorts video when the current Shorts video ends.
 
 ## 자세한 설명 초안
 

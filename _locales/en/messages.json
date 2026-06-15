@@ -8,7 +8,7 @@
     "description": "Short extension name."
   },
   "extensionDescription": {
-    "message": "Automatically advances to the next YouTube Shorts video when the current one ends.",
+    "message": "Auto play the next YouTube Shorts video when the current Shorts video ends.",
     "description": "Chrome Web Store and browser extension description."
   },
   "htmlLang": {
