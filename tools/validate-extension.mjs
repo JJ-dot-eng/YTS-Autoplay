@@ -39,6 +39,30 @@ function checkJavaScript(relativePath) {
   }
 }
 
+function checkLocaleMessages(locale) {
+  const messagesPath = path.join(repoRoot, "_locales", locale, "messages.json");
+  const messages = readJson(messagesPath);
+
+  if (!messages) return null;
+
+  for (const key of [
+    "extensionName",
+    "extensionShortName",
+    "extensionDescription",
+    "htmlLang",
+    "popupSubtitle",
+    "toggleLabel",
+    "statusOn",
+    "statusOff"
+  ]) {
+    if (!messages[key]?.message || typeof messages[key].message !== "string") {
+      addError(`_locales/${locale}/messages.json에 ${key}.message가 필요합니다.`);
+    }
+  }
+
+  return messages;
+}
+
 function getPngSize(relativePath) {
   const filePath = path.join(repoRoot, relativePath);
   const buffer = fs.readFileSync(filePath);
@@ -61,18 +85,31 @@ if (manifest) {
     addError("manifest_version은 3이어야 합니다.");
   }
 
-  if (!manifest.name || typeof manifest.name !== "string") {
-    addError("manifest.name이 필요합니다.");
+  if (manifest.default_locale !== "en") {
+    addError("default_locale은 en이어야 합니다.");
+  }
+
+  const enMessages = checkLocaleMessages("en");
+  const koMessages = checkLocaleMessages("ko");
+
+  if (!manifest.name || manifest.name !== "__MSG_extensionName__") {
+    addError("manifest.name은 __MSG_extensionName__을 사용해야 합니다.");
   }
 
   if (!manifest.version || typeof manifest.version !== "string") {
     addError("manifest.version이 필요합니다.");
   }
 
-  if (!manifest.description || typeof manifest.description !== "string") {
-    addError("manifest.description이 필요합니다.");
-  } else if (manifest.description.length > 132) {
-    addError("manifest.description은 Chrome Web Store 기준에 맞게 132자 이하여야 합니다.");
+  if (manifest.description !== "__MSG_extensionDescription__") {
+    addError("manifest.description은 __MSG_extensionDescription__을 사용해야 합니다.");
+  }
+
+  for (const [locale, messages] of [["en", enMessages], ["ko", koMessages]]) {
+    const description = messages?.extensionDescription?.message;
+
+    if (description && description.length > 132) {
+      addError(`_locales/${locale} extensionDescription은 132자 이하여야 합니다.`);
+    }
   }
 
   const permissions = Array.isArray(manifest.permissions) ? manifest.permissions : [];

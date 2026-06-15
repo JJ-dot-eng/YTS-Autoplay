@@ -1,0 +1,34 @@
+{
+  "extensionName": {
+    "message": "YTS Autoplay",
+    "description": "확장프로그램 이름."
+  },
+  "extensionShortName": {
+    "message": "YTS Auto",
+    "description": "짧은 확장프로그램 이름."
+  },
+  "extensionDescription": {
+    "message": "YouTube Shorts 영상이 끝나면 자동으로 다음 Shorts로 넘깁니다.",
+    "description": "Chrome Web Store와 브라우저 확장 설명."
+  },
+  "htmlLang": {
+    "message": "ko",
+    "description": "popup HTML 언어 코드."
+  },
+  "popupSubtitle": {
+    "message": "Shorts 자동 넘김",
+    "description": "popup 부제목."
+  },
+  "toggleLabel": {
+    "message": "자동 넘김",
+    "description": "popup 토글 이름."
+  },
+  "statusOn": {
+    "message": "켜짐",
+    "description": "기능이 켜진 상태 문구."
+  },
+  "statusOff": {
+    "message": "꺼짐",
+    "description": "기능이 꺼진 상태 문구."
+  }
+}

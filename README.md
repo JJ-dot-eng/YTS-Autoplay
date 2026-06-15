@@ -4,6 +4,8 @@ YouTube Shorts를 더 편하게 이어 볼 수 있게 해주는 Chrome 확장프
 
 Shorts 영상이 끝나면 자동으로 다음 Shorts로 넘어갑니다. 직접 스크롤하지 않아도 짧은 영상을 한 편씩 이어서 볼 수 있습니다.
 
+YTS Autoplay is a Chrome extension that automatically advances to the next YouTube Shorts video when the current one ends.
+
 ## 설치 방법
 
 1. Chrome에서 `chrome://extensions`를 엽니다.
@@ -18,6 +20,7 @@ Shorts 영상이 끝나면 자동으로 다음 Shorts로 넘어갑니다. 직접
 - 확장 아이콘을 눌러 자동 넘김을 켜거나 끌 수 있습니다.
 - 일반 YouTube 영상에서는 동작하지 않습니다.
 - 별도 설정 없이 설치 후 바로 사용할 수 있습니다.
+- English and Korean are supported.
 
 ## 개인정보
 

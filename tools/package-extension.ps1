@@ -28,6 +28,7 @@ if (Test-Path -LiteralPath $StageDir) {
 
 New-Item -ItemType Directory -Force -Path $StageDir | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $StageDir "icons") | Out-Null
+New-Item -ItemType Directory -Force -Path (Join-Path $StageDir "_locales") | Out-Null
 
 $packageFiles = @("manifest.json", "content.js", "popup.html", "popup.css", "popup.js")
 foreach ($file in $packageFiles) {
@@ -42,6 +43,13 @@ foreach ($iconPath in $iconPaths) {
 
   New-Item -ItemType Directory -Force -Path $destinationDir | Out-Null
   Copy-Item -LiteralPath $source -Destination $destination
+}
+
+$localesSourceDir = Join-Path $RepoRoot "_locales"
+$localesStageDir = Join-Path $StageDir "_locales"
+
+Get-ChildItem -LiteralPath $localesSourceDir -Directory | ForEach-Object {
+  Copy-Item -LiteralPath $_.FullName -Destination $localesStageDir -Recurse
 }
 
 if (Test-Path -LiteralPath $ZipPath) {

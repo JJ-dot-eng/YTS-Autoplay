@@ -1,0 +1,34 @@
+{
+  "extensionName": {
+    "message": "YTS Autoplay",
+    "description": "Extension name."
+  },
+  "extensionShortName": {
+    "message": "YTS Auto",
+    "description": "Short extension name."
+  },
+  "extensionDescription": {
+    "message": "Automatically advances to the next YouTube Shorts video when the current one ends.",
+    "description": "Chrome Web Store and browser extension description."
+  },
+  "htmlLang": {
+    "message": "en",
+    "description": "Popup HTML language code."
+  },
+  "popupSubtitle": {
+    "message": "Shorts autoplay",
+    "description": "Popup subtitle."
+  },
+  "toggleLabel": {
+    "message": "Auto advance",
+    "description": "Popup toggle label."
+  },
+  "statusOn": {
+    "message": "On",
+    "description": "Enabled status text."
+  },
+  "statusOff": {
+    "message": "Off",
+    "description": "Disabled status text."
+  }
+}
