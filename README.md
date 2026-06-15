@@ -6,14 +6,6 @@ Shorts 영상이 끝나면 자동으로 다음 Shorts로 넘어갑니다. 직접
 
 YTS Autoplay is a Chrome extension that automatically advances to the next YouTube Shorts video when the current one ends.
 
-## 설치 방법
-
-1. Chrome에서 `chrome://extensions`를 엽니다.
-2. 오른쪽 위의 `개발자 모드`를 켭니다.
-3. `압축해제된 확장 프로그램을 로드합니다`를 누릅니다.
-4. 이 프로젝트 폴더를 선택합니다.
-5. `https://www.youtube.com/shorts/...` 주소에서 Shorts를 재생해 확인합니다.
-
 ## 주요 기능
 
 - Shorts 영상이 끝나면 자동으로 다음 영상으로 넘어갑니다.
