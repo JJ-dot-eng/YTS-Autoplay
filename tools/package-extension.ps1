@@ -29,7 +29,7 @@ if (Test-Path -LiteralPath $StageDir) {
 New-Item -ItemType Directory -Force -Path $StageDir | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $StageDir "icons") | Out-Null
 
-$packageFiles = @("manifest.json", "content.js")
+$packageFiles = @("manifest.json", "content.js", "popup.html", "popup.css", "popup.js")
 foreach ($file in $packageFiles) {
   Copy-Item -LiteralPath (Join-Path $RepoRoot $file) -Destination (Join-Path $StageDir $file)
 }

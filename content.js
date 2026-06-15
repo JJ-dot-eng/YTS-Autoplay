@@ -4,11 +4,46 @@
   const SCAN_INTERVAL_MS = 500;
   const END_THRESHOLD_SECONDS = 0.35;
   const NEXT_COOLDOWN_MS = 900;
+  const STORAGE_KEY = "enabled";
 
   let activeVideo = null;
   let activeShortId = "";
   let advancedShortId = "";
   let lastAdvanceAt = 0;
+  let isEnabled = true;
+
+  function getStorageLocal() {
+    if (typeof chrome === "undefined" || !chrome.storage || !chrome.storage.local) {
+      return null;
+    }
+
+    return chrome.storage.local;
+  }
+
+  function getStorageChanges() {
+    if (typeof chrome === "undefined" || !chrome.storage || !chrome.storage.onChanged) {
+      return null;
+    }
+
+    return chrome.storage.onChanged;
+  }
+
+  function readEnabledSetting() {
+    const storage = getStorageLocal();
+    if (!storage) return;
+
+    storage.get({ [STORAGE_KEY]: true }, (settings) => {
+      isEnabled = settings[STORAGE_KEY] !== false;
+
+      if (!isEnabled) {
+        advancedShortId = "";
+        unbindActiveVideo();
+        return;
+      }
+
+      scan();
+    });
+  }
 
   function isShortsPage() {
     return location.pathname.startsWith("/shorts/");
@@ -81,6 +116,7 @@
   }
 
   function advanceToNextShort() {
+    if (!isEnabled) return;
     if (!isShortsPage()) return;
 
     const now = Date.now();
@@ -141,6 +177,11 @@
   }
 
   function scan() {
+    if (!isEnabled) {
+      unbindActiveVideo();
+      return;
+    }
+
     if (!isShortsPage()) {
       unbindActiveVideo();
       activeShortId = "";
@@ -165,6 +206,24 @@
   window.addEventListener("yt-navigate-finish", scan);
   window.addEventListener("popstate", scan);
 
+  const storageChanges = getStorageChanges();
+  if (storageChanges) {
+    storageChanges.addListener((changes, areaName) => {
+      if (areaName !== "local" || !changes[STORAGE_KEY]) return;
+
+      isEnabled = changes[STORAGE_KEY].newValue !== false;
+
+      if (isEnabled) {
+        scan();
+        return;
+      }
+
+      advancedShortId = "";
+      unbindActiveVideo();
+    });
+  }
+
+  readEnabledSetting();
   scan();
   setInterval(scan, SCAN_INTERVAL_MS);
 })();

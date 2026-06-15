@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YTS Autoplay</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="popup">
+      <section class="header" aria-label="YTS Autoplay">
+        <img class="logo" src="icons/icon48.png" alt="">
+        <div>
+          <h1>YTS Autoplay</h1>
+          <p>Shorts 자동 넘김</p>
+        </div>
+      </section>
+
+      <label class="toggle-row" for="enabled">
+        <span>
+          <strong>자동 넘김</strong>
+          <small id="statusText">켜짐</small>
+        </span>
+        <input id="enabled" type="checkbox" role="switch" checked>
+      </label>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

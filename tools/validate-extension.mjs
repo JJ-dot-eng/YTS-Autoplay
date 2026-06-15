@@ -24,6 +24,21 @@ function fileExists(relativePath) {
   return fs.existsSync(path.join(repoRoot, relativePath));
 }
 
+function checkJavaScript(relativePath) {
+  if (!fileExists(relativePath)) {
+    addError(`참조하는 ${relativePath} 파일이 없습니다.`);
+    return;
+  }
+
+  const check = spawnSync(process.execPath, ["--check", path.join(repoRoot, relativePath)], {
+    encoding: "utf8"
+  });
+
+  if (check.status !== 0) {
+    addError(`${relativePath} 문법 검사 실패:\n${check.stderr || check.stdout}`);
+  }
+}
+
 function getPngSize(relativePath) {
   const filePath = path.join(repoRoot, relativePath);
   const buffer = fs.readFileSync(filePath);
@@ -60,8 +75,14 @@ if (manifest) {
     addError("manifest.description은 Chrome Web Store 기준에 맞게 132자 이하여야 합니다.");
   }
 
-  if (Array.isArray(manifest.permissions) && manifest.permissions.length > 0) {
-    addError("현재 기능에는 permissions가 필요하지 않습니다.");
+  const permissions = Array.isArray(manifest.permissions) ? manifest.permissions : [];
+  const unexpectedPermissions = permissions.filter((permission) => permission !== "storage");
+  if (unexpectedPermissions.length > 0) {
+    addError(`허용되지 않은 권한이 있습니다: ${unexpectedPermissions.join(", ")}`);
+  }
+
+  if (!permissions.includes("storage")) {
+    addError("popup 설정 저장을 위해 storage 권한이 필요합니다.");
   }
 
   if (Array.isArray(manifest.host_permissions) && manifest.host_permissions.length > 0) {
@@ -76,20 +97,18 @@ if (manifest) {
 
   for (const script of contentScripts) {
     for (const jsFile of script.js || []) {
-      if (!fileExists(jsFile)) {
-        addError(`manifest가 참조하는 ${jsFile} 파일이 없습니다.`);
-        continue;
-      }
-
-      const check = spawnSync(process.execPath, ["--check", path.join(repoRoot, jsFile)], {
-        encoding: "utf8"
-      });
-
-      if (check.status !== 0) {
-        addError(`${jsFile} 문법 검사 실패:\n${check.stderr || check.stdout}`);
-      }
+      checkJavaScript(jsFile);
     }
   }
+
+  const popupPath = manifest.action?.default_popup;
+  if (!popupPath) {
+    addError("manifest.action.default_popup이 필요합니다.");
+  } else if (!fileExists(popupPath)) {
+    addError(`popup 파일이 없습니다: ${popupPath}`);
+  }
+
+  checkJavaScript("popup.js");
 
   const requiredIconSizes = ["16", "32", "48", "128"];
   for (const size of requiredIconSizes) {
