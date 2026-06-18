@@ -128,8 +128,8 @@ if (manifest) {
 
   const contentScripts = manifest.content_scripts || [];
   const matches = contentScripts.flatMap((script) => script.matches || []);
-  if (matches.length !== 1 || matches[0] !== "https://www.youtube.com/shorts/*") {
-    addError("content script는 https://www.youtube.com/shorts/* 에서만 실행되어야 합니다.");
+  if (matches.length !== 1 || matches[0] !== "https://www.youtube.com/*") {
+    addError("content script는 https://www.youtube.com/* 에서 실행되어야 합니다.");
   }
 
   for (const script of contentScripts) {
