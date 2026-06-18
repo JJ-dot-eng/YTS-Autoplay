@@ -9,14 +9,12 @@
 
   const SCAN_INTERVAL_MS = 500;
   const END_THRESHOLD_SECONDS = 0.1;
-  const ADVANCE_DELAY_MS = 200;
   const NEXT_COOLDOWN_MS = 900;
   const STORAGE_KEY = "enabled";
 
   let activeVideo = null;
   let activeShortId = "";
   let advancedShortId = "";
-  let pendingAdvanceShortId = "";
   let lastAdvanceAt = 0;
   let isEnabled = true;
 
@@ -45,7 +43,6 @@
 
       if (!isEnabled) {
         advancedShortId = "";
-        pendingAdvanceShortId = "";
         unbindActiveVideo();
         return;
       }
@@ -146,26 +143,6 @@
     scrollToNextShort();
   }
 
-  function scheduleAdvanceToNextShort() {
-    if (!isEnabled) return;
-    if (!isShortsPage()) return;
-
-    const shortId = getShortId();
-    if (shortId && (advancedShortId === shortId || pendingAdvanceShortId === shortId)) return;
-
-    pendingAdvanceShortId = shortId;
-
-    window.setTimeout(() => {
-      if (shortId && getShortId() !== shortId) {
-        pendingAdvanceShortId = "";
-        return;
-      }
-
-      pendingAdvanceShortId = "";
-      advanceToNextShort();
-    }, ADVANCE_DELAY_MS);
-  }
-
   function isVideoNearEnd(video) {
     if (!video.duration || !Number.isFinite(video.duration)) return false;
     if (video.duration < 0.5) return false;
@@ -175,7 +152,7 @@
 
   function handleEnded(event) {
     if (event.currentTarget !== activeVideo) return;
-    scheduleAdvanceToNextShort();
+    advanceToNextShort();
   }
 
   function handleTimeUpdate(event) {
@@ -183,7 +160,7 @@
     if (video !== activeVideo) return;
     if (!isVideoNearEnd(video)) return;
 
-    scheduleAdvanceToNextShort();
+    advanceToNextShort();
   }
 
   function unbindActiveVideo() {
@@ -221,7 +198,6 @@
     if (shortId && shortId !== activeShortId) {
       activeShortId = shortId;
       advancedShortId = "";
-      pendingAdvanceShortId = "";
     }
 
     bindVideo(findActiveVideo());
@@ -249,7 +225,6 @@
       }
 
       advancedShortId = "";
-      pendingAdvanceShortId = "";
       unbindActiveVideo();
     });
   }

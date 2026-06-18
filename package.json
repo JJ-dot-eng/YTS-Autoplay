@@ -1,6 +1,6 @@
 {
   "name": "yts-autoplay",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "private": true,
   "description": "YouTube Shorts 영상이 끝나면 자동으로 다음 Shorts로 넘기는 Chrome 확장프로그램입니다.",
   "scripts": {
