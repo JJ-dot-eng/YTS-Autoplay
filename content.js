@@ -8,7 +8,7 @@
   window.__YTS_AUTOPLAY_CONTENT_LOADED__ = true;
 
   const SCAN_INTERVAL_MS = 500;
-  const END_THRESHOLD_SECONDS = 0.1;
+  const END_THRESHOLD_SECONDS = 0.2;
   const NEXT_COOLDOWN_MS = 900;
   const STORAGE_KEY = "enabled";
 
