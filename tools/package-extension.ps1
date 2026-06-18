@@ -30,7 +30,7 @@ New-Item -ItemType Directory -Force -Path $StageDir | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $StageDir "icons") | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $StageDir "_locales") | Out-Null
 
-$packageFiles = @("manifest.json", "content.js", "popup.html", "popup.css", "popup.js")
+$packageFiles = @("manifest.json", "background.js", "content.js", "popup.html", "popup.css", "popup.js")
 foreach ($file in $packageFiles) {
   Copy-Item -LiteralPath (Join-Path $RepoRoot $file) -Destination (Join-Path $StageDir $file)
 }

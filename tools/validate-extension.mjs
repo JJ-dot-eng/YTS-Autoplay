@@ -113,7 +113,8 @@ if (manifest) {
   }
 
   const permissions = Array.isArray(manifest.permissions) ? manifest.permissions : [];
-  const unexpectedPermissions = permissions.filter((permission) => permission !== "storage");
+  const allowedPermissions = ["storage", "scripting", "webNavigation"];
+  const unexpectedPermissions = permissions.filter((permission) => !allowedPermissions.includes(permission));
   if (unexpectedPermissions.length > 0) {
     addError(`허용되지 않은 권한이 있습니다: ${unexpectedPermissions.join(", ")}`);
   }
@@ -122,8 +123,17 @@ if (manifest) {
     addError("popup 설정 저장을 위해 storage 권한이 필요합니다.");
   }
 
-  if (Array.isArray(manifest.host_permissions) && manifest.host_permissions.length > 0) {
-    addError("현재 기능에는 host_permissions가 필요하지 않습니다.");
+  if (!permissions.includes("scripting")) {
+    addError("이미 열려 있는 YouTube 탭에 content script를 주입하기 위해 scripting 권한이 필요합니다.");
+  }
+
+  if (!permissions.includes("webNavigation")) {
+    addError("YouTube 내부 이동 감지를 위해 webNavigation 권한이 필요합니다.");
+  }
+
+  const hostPermissions = Array.isArray(manifest.host_permissions) ? manifest.host_permissions : [];
+  if (hostPermissions.length !== 1 || hostPermissions[0] !== "https://www.youtube.com/*") {
+    addError("host_permissions는 https://www.youtube.com/* 하나만 사용해야 합니다.");
   }
 
   const contentScripts = manifest.content_scripts || [];
@@ -137,6 +147,12 @@ if (manifest) {
       checkJavaScript(jsFile);
     }
   }
+
+  if (manifest.background?.service_worker !== "background.js") {
+    addError("manifest.background.service_worker는 background.js여야 합니다.");
+  }
+
+  checkJavaScript("background.js");
 
   const popupPath = manifest.action?.default_popup;
   if (!popupPath) {

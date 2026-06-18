@@ -1,6 +1,12 @@
 (() => {
   "use strict";
 
+  if (window.__YTS_AUTOPLAY_CONTENT_LOADED__) {
+    return;
+  }
+
+  window.__YTS_AUTOPLAY_CONTENT_LOADED__ = true;
+
   const SCAN_INTERVAL_MS = 500;
   const END_THRESHOLD_SECONDS = 0.35;
   const NEXT_COOLDOWN_MS = 900;

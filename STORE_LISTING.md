@@ -21,11 +21,11 @@ Auto play the next YouTube Shorts video when the current Shorts video ends.
 
 YTS Autoplay는 YouTube Shorts 영상이 끝났을 때 자동으로 다음 Shorts로 넘기는 Chrome 확장프로그램입니다.
 
-YouTube 내부 이동으로 Shorts에 들어가도 작동할 수 있도록 YouTube 페이지에서 로드되며, 자동 넘김 기능은 Shorts 페이지에서만 실행됩니다. 현재 화면에 보이는 영상의 재생 종료를 감지하고 다음 Shorts로 이동합니다.
+YouTube 내부 이동으로 Shorts에 들어가도 작동할 수 있도록 YouTube 페이지에서 로드되며, 이미 열려 있는 YouTube 탭에도 필요한 경우 다시 주입됩니다. 자동 넘김 기능은 Shorts 페이지에서만 실행됩니다. 현재 화면에 보이는 영상의 재생 종료를 감지하고 다음 Shorts로 이동합니다.
 
 확장 아이콘을 눌러 자동 넘김 기능을 켜거나 끌 수 있습니다. 개인정보를 수집하지 않고, 외부 서버로 데이터를 보내지 않습니다.
 
-The extension loads on YouTube pages so it can detect navigation into Shorts without requiring a refresh. The auto-advance feature only runs on Shorts pages.
+The extension loads on YouTube pages and can reinject its content script into already-open YouTube tabs so it can detect navigation into Shorts without requiring a refresh. The auto-advance feature only runs on Shorts pages.
 
 You can turn auto advance on or off from the extension popup. The extension does not collect personal data or send data to external servers.
 
@@ -36,6 +36,7 @@ You can turn auto advance on or off from the extension popup. The extension does
 - 광고/분석/추적: 없음
 - 사용 권한: storage
 - storage 사용 목적: 자동 넘김 켜기/끄기 설정 저장
+- scripting/webNavigation 사용 목적: YouTube 내부 이동과 이미 열려 있는 YouTube 탭에서 content script 주입 보강
 
 ## 심사용 테스트 안내
 
