@@ -23,6 +23,14 @@
     "message": "자동 넘김",
     "description": "popup 토글 이름."
   },
+  "statusLoading": {
+    "message": "설정을 불러오는 중…",
+    "description": "저장된 설정을 불러오는 동안 표시하는 상태 문구."
+  },
+  "statusSaving": {
+    "message": "저장 중…",
+    "description": "설정을 저장하는 동안 표시하는 상태 문구."
+  },
   "statusOn": {
     "message": "켜짐",
     "description": "기능이 켜진 상태 문구."
@@ -30,5 +38,25 @@
   "statusOff": {
     "message": "꺼짐",
     "description": "기능이 꺼진 상태 문구."
+  },
+  "storageLoadError": {
+    "message": "설정을 불러오지 못했습니다. $STATE$ 상태로 사용합니다.",
+    "description": "저장된 설정을 불러오지 못했을 때 표시하는 오류 문구.",
+    "placeholders": {
+      "state": {
+        "content": "$1",
+        "example": "켜짐"
+      }
+    }
+  },
+  "storageSaveError": {
+    "message": "설정을 저장하지 못했습니다. $STATE$ 상태로 되돌렸습니다.",
+    "description": "설정을 저장하지 못했을 때 표시하는 오류 문구.",
+    "placeholders": {
+      "state": {
+        "content": "$1",
+        "example": "꺼짐"
+      }
+    }
   }
 }

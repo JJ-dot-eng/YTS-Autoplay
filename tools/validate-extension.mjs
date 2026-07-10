@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = path.join(repoRoot, "manifest.json");
+const packagePath = path.join(repoRoot, "package.json");
 const errors = [];
 
 function addError(message) {
@@ -52,8 +53,12 @@ function checkLocaleMessages(locale) {
     "htmlLang",
     "popupSubtitle",
     "toggleLabel",
+    "statusLoading",
+    "statusSaving",
     "statusOn",
-    "statusOff"
+    "statusOff",
+    "storageLoadError",
+    "storageSaveError"
   ]) {
     if (!messages[key]?.message || typeof messages[key].message !== "string") {
       addError(`_locales/${locale}/messages.json에 ${key}.message가 필요합니다.`);
@@ -61,6 +66,15 @@ function checkLocaleMessages(locale) {
   }
 
   return messages;
+}
+
+function isValidChromeVersion(version) {
+  if (typeof version !== "string" || !/^(0|[1-9]\d*)(\.(0|[1-9]\d*)){0,3}$/.test(version)) {
+    return false;
+  }
+
+  const parts = version.split(".").map(Number);
+  return parts.some((part) => part !== 0) && parts.every((part) => part <= 65535);
 }
 
 function getPngSize(relativePath) {
@@ -79,6 +93,7 @@ function getPngSize(relativePath) {
 }
 
 const manifest = readJson(manifestPath);
+const packageJson = readJson(packagePath);
 
 if (manifest) {
   if (manifest.manifest_version !== 3) {
@@ -98,6 +113,16 @@ if (manifest) {
 
   if (!manifest.version || typeof manifest.version !== "string") {
     addError("manifest.version이 필요합니다.");
+  } else if (!isValidChromeVersion(manifest.version)) {
+    addError("manifest.version은 0~65535 범위의 정수 1~4개로 구성하고, 선행 0과 전체 0을 사용할 수 없습니다.");
+  }
+
+  if (packageJson) {
+    if (!packageJson.version || typeof packageJson.version !== "string") {
+      addError("package.json version이 필요합니다.");
+    } else if (packageJson.version !== manifest.version) {
+      addError(`package.json version(${packageJson.version})과 manifest.version(${manifest.version})이 일치해야 합니다.`);
+    }
   }
 
   if (manifest.description !== "__MSG_extensionDescription__") {

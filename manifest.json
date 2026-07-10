@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_extensionName__",
   "short_name": "__MSG_extensionShortName__",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "default_locale": "en",
   "description": "__MSG_extensionDescription__",
   "permissions": ["storage", "scripting", "webNavigation"],
@@ -29,7 +29,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
-      "js": ["content.js"],
+      "js": ["content-logic.js", "content.js"],
       "run_at": "document_idle"
     }
   ]

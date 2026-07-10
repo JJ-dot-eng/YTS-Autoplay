@@ -1,4 +1,6 @@
 const YOUTUBE_URL_PATTERN = "https://www.youtube.com/*";
+const CONTENT_SCRIPT_FILES = chrome.runtime.getManifest().content_scripts
+  .flatMap((script) => script.js || []);
 
 function isYouTubeUrl(url) {
   try {
@@ -15,7 +17,7 @@ async function injectContentScript(tabId) {
   try {
     await chrome.scripting.executeScript({
       target: { tabId },
-      files: ["content.js"]
+      files: CONTENT_SCRIPT_FILES
     });
   } catch {
     // Some YouTube tabs may be unavailable during navigation. The next event will retry.
@@ -23,7 +25,13 @@ async function injectContentScript(tabId) {
 }
 
 async function injectIntoOpenYouTubeTabs() {
-  const tabs = await chrome.tabs.query({ url: YOUTUBE_URL_PATTERN });
+  let tabs;
+
+  try {
+    tabs = await chrome.tabs.query({ url: YOUTUBE_URL_PATTERN });
+  } catch {
+    return;
+  }
 
   for (const tab of tabs) {
     await injectContentScript(tab.id);

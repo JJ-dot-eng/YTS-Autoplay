@@ -34,7 +34,7 @@ You can turn auto advance on or off from the extension popup. The extension does
 - 데이터 수집: 없음
 - 외부 전송: 없음
 - 광고/분석/추적: 없음
-- 사용 권한: storage
+- 사용 권한: storage, scripting, webNavigation
 - storage 사용 목적: 자동 넘김 켜기/끄기 설정 저장
 - scripting/webNavigation 사용 목적: YouTube 내부 이동과 이미 열려 있는 YouTube 탭에서 content script 주입 보강
 

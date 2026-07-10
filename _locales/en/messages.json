@@ -23,6 +23,14 @@
     "message": "Auto advance",
     "description": "Popup toggle label."
   },
+  "statusLoading": {
+    "message": "Loading setting…",
+    "description": "Status shown while the saved setting is loading."
+  },
+  "statusSaving": {
+    "message": "Saving…",
+    "description": "Status shown while the setting is being saved."
+  },
   "statusOn": {
     "message": "On",
     "description": "Enabled status text."
@@ -30,5 +38,25 @@
   "statusOff": {
     "message": "Off",
     "description": "Disabled status text."
+  },
+  "storageLoadError": {
+    "message": "Couldn't load the setting. Using $STATE$.",
+    "description": "Error shown when the saved setting cannot be loaded.",
+    "placeholders": {
+      "state": {
+        "content": "$1",
+        "example": "On"
+      }
+    }
+  },
+  "storageSaveError": {
+    "message": "Couldn't save the setting. Restored to $STATE$.",
+    "description": "Error shown when the setting cannot be saved.",
+    "placeholders": {
+      "state": {
+        "content": "$1",
+        "example": "Off"
+      }
+    }
   }
 }

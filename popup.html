@@ -18,10 +18,24 @@
 
       <label class="toggle-row" for="enabled">
         <span>
-          <strong data-i18n="toggleLabel">Auto advance</strong>
-          <small id="statusText">On</small>
+          <strong id="toggleLabel" data-i18n="toggleLabel">Auto advance</strong>
+          <small
+            id="statusText"
+            data-i18n="statusLoading"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >Loading…</small>
         </span>
-        <input id="enabled" type="checkbox" role="switch" checked>
+        <input
+          id="enabled"
+          type="checkbox"
+          role="switch"
+          aria-labelledby="toggleLabel"
+          aria-describedby="statusText"
+          checked
+          disabled
+        >
         <span class="switch" aria-hidden="true"></span>
       </label>
     </main>
